@@ -24,14 +24,14 @@ DROP TABLE IF EXISTS `booking`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `booking` (
   `BID` int NOT NULL AUTO_INCREMENT,
-  `Startdate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `Startdate` date DEFAULT NULL,
   `NoofDays` int DEFAULT NULL,
   `VIP` varchar(50) DEFAULT NULL,
   `Assigned_Rooms` varchar(45) DEFAULT NULL,
   `CID` varchar(45) NOT NULL,
   `PID` varchar(45) NOT NULL,
   PRIMARY KEY (`BID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,'2020-09-10 11:34:44',3,'0','1','2','2'),(2,'2020-09-08 22:03:44',2,'1','2','1','1'),(3,'2020-09-10 11:34:59',5,'0','4','3','3'),(4,'2020-09-10 21:16:08',4,' Not ',' 16 ',' 32 ',' 3 ');
+INSERT INTO `booking` VALUES (7,'2020-10-09',3,' Not ',' 12 ',' 45 ',' 3 '),(8,'2020-10-07',6,' Not ',' 34 ',' 44 ',' 2 '),(9,'2020-10-01',4,' VIP ',' 45 ',' 42 ',' 2 '),(10,'2020-10-05',8,' VIP ',' 56 ',' 43 ',' 2 ');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-11  8:06:56
+-- Dump completed on 2020-10-10 10:59:23

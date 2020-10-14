@@ -207,9 +207,9 @@ public class login extends javax.swing.JFrame {
         //Calling the method
         boolean login_status = dbhelper.LoginValidation(username, passeword);
         if (login_status == true){
-            MainMenu m1 = new MainMenu();
-            this.setVisible(false);
-            m1.setVisible(true);
+//            MainMenu m1 = new MainMenu();
+//            this.setVisible(false);
+//            m1.setVisible(true);
             
         } else {
             JOptionPane.showMessageDialog(this,"User login failed","Error",JOptionPane.ERROR_MESSAGE);

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="customPhone" pageWidth="298" pageHeight="420" columnWidth="258" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5fdad93-cdd3-4058-bab9-22683b851dd5">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (3)"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="CUSTOMERID" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{CUSTOMERID}]]></defaultValueExpression>
+		</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT *
+FROM itpfinaldb.customer_phone
+WHERE Customer_CID =  $P{CUSTOMERID} ]]>
+	</queryString>
+	<field name="Customer_CID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Customer_CID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_phone"/>
+	</field>
+	<field name="Phone_num" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Phone_num"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_phone"/>
+	</field>
+	<field name="Phone_ID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Phone_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer_phone"/>
+	</field>
+	<background>
+		<band height="6" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="29" y="11" width="200" height="34" uuid="fa09282d-5384-4f23-9c80-d5e8f6625b63"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Customer Phone Numbers ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="64" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="10" width="250" height="45" backcolor="#DEDE00" uuid="78f80d46-001f-430e-8dac-1141444735b5"/>
+				<textField>
+					<reportElement x="39" y="10" width="190" height="30" forecolor="#FFFFFF" backcolor="#DEDE00" uuid="35595f34-0331-46db-a178-ad385f648e72"/>
+					<box>
+						<pen lineColor="#DEDE00"/>
+					</box>
+					<textElement>
+						<font size="16"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Phone_num}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

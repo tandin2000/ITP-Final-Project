@@ -1,17 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Project;
 
 
+import Interfaces.BookingReports;
+import Interfaces.CustomerReports;
+import Interfaces.PackageListForReception;
+import static Project.Border.changeFunction;
 import SQL.DBHelper;
+import java.util.Date;
 import static Table.TableModel.Package.*;
 import java.sql.ResultSet;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import Interfaces.RoomTableForReception;
+import Interfaces.Supplier_Search;
 //import static Table.TableModel.PackageTable.COL2_package
 import javax.swing.ImageIcon;
 import javax.swing.RowFilter;
@@ -27,6 +30,7 @@ import static Table.TableModel.customerDetailsTable.Reception_COL6;
 import static Table.TableModel.customerDetailsTable.Reception_COL7;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.sf.jasperreports.engine.JRException;
 /**
  *
  * @author salitha
@@ -54,7 +58,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
         hello.setText("");
         
         //Table Filling Methods
-        displayRoomDetails();
+        //displayRoomDetails();
     }
 
     /**
@@ -74,7 +78,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
         EditBookingDetailsPannel = new javax.swing.JButton();
         EditCustomerDetailsPannel = new javax.swing.JButton();
         Home_Btn = new javax.swing.JButton();
-        Report_Panel = new javax.swing.JButton();
         MainPannel = new javax.swing.JPanel();
         EditCustomerDetailsMainPannel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -125,6 +128,10 @@ public class ReceptionPannel extends javax.swing.JPanel {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
+        jLabel29 = new javax.swing.JLabel();
+        Date = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        RoomDetailsDetailsPannel1 = new javax.swing.JButton();
         EditBookingDetailsMainPannel = new javax.swing.JPanel();
         booking_ID = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -174,13 +181,8 @@ public class ReceptionPannel extends javax.swing.JPanel {
         jLabel22 = new javax.swing.JLabel();
         phoneValid = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        ReportsMainPannel = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        DisplayRoomDetailsMainPannel = new javax.swing.JPanel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        RoomDetailsTable = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
-        searchRoom = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
         DisplayPackagesPanel = new javax.swing.JPanel();
         hello = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -210,6 +212,11 @@ public class ReceptionPannel extends javax.swing.JPanel {
         EnterCustomerDetailsPannel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 EnterCustomerDetailsPannelMouseClicked(evt);
+            }
+        });
+        EnterCustomerDetailsPannel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnterCustomerDetailsPannelActionPerformed(evt);
             }
         });
 
@@ -262,34 +269,19 @@ public class ReceptionPannel extends javax.swing.JPanel {
             }
         });
 
-        Report_Panel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ReceptionButtons/Black/Salitha_ITP_10.png"))); // NOI18N
-        ReceptionbuttonGroup.add(Report_Panel);
-        Report_Panel.setMaximumSize(new java.awt.Dimension(213, 55));
-        Report_Panel.setMinimumSize(new java.awt.Dimension(213, 55));
-        Report_Panel.setPreferredSize(new java.awt.Dimension(213, 55));
-        Report_Panel.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ReceptionButtons/Orange/Salitha_ITP_5.png"))); // NOI18N
-        Report_Panel.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ReceptionButtons/Orange/Salitha_ITP_5.png"))); // NOI18N
-        Report_Panel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Report_PanelMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
         sidePanelLayout.setHorizontalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Report_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(Home_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(EnterBookingDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EnterCustomerDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EditCustomerDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EditBookingDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Home_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(EnterBookingDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(EnterCustomerDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(EditCustomerDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(EditBookingDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
@@ -303,11 +295,9 @@ public class ReceptionPannel extends javax.swing.JPanel {
                 .addComponent(EnterBookingDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditBookingDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Report_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(151, 151, 151)
+                .addGap(202, 202, 202)
                 .addComponent(Home_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         jPanel2.add(sidePanel, java.awt.BorderLayout.LINE_START);
@@ -336,14 +326,14 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
         CNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Local", "Foreign" }));
 
-        jButton4.setText("Update");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/UPDATE_SELECTED.png"))); // NOI18N
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton4UpdateCustomerDetails(evt);
             }
         });
 
-        jButton5.setText("Delete");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/DELETE_NORMAL.png"))); // NOI18N
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton5CustomdetailsDeleteMouseClicked(evt);
@@ -437,7 +427,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
         });
         jScrollPane8.setViewportView(customPhoneTableEdit);
 
-        phoneDetailsUpdate.setText("update");
+        phoneDetailsUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/UPDATE_SELECTED.png"))); // NOI18N
         phoneDetailsUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 phoneDetailsUpdateMouseClicked(evt);
@@ -449,7 +439,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
             }
         });
 
-        phoneDetailsDelete.setText("Delete");
+        phoneDetailsDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/DELETE_NORMAL.png"))); // NOI18N
         phoneDetailsDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 phoneDetailsDeleteMouseClicked(evt);
@@ -487,13 +477,13 @@ public class ReceptionPannel extends javax.swing.JPanel {
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(EditCustomerDetailsMainPannelLayout.createSequentialGroup()
                                 .addGap(13, 13, 13)
-                                .addComponent(phoneDetailsUpdate)
-                                .addGap(56, 56, 56)
-                                .addComponent(phoneDetailsDelete))
+                                .addComponent(phoneDetailsUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(phoneDetailsDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(EditCustomerDetailsMainPannelLayout.createSequentialGroup()
                                 .addGap(61, 61, 61)
                                 .addComponent(phone_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
                         .addGroup(EditCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditCustomerDetailsMainPannelLayout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -532,13 +522,13 @@ public class ReceptionPannel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(EditCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditCustomerDetailsMainPannelLayout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addGap(138, 138, 138)
-                                .addComponent(jButton5)
-                                .addGap(145, 145, 145))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditCustomerDetailsMainPannelLayout.createSequentialGroup()
                                 .addComponent(Custom_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(385, 385, 385))))))
+                                .addGap(385, 385, 385))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditCustomerDetailsMainPannelLayout.createSequentialGroup()
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(145, 145, 145))))))
         );
         EditCustomerDetailsMainPannelLayout.setVerticalGroup(
             EditCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,15 +560,15 @@ public class ReceptionPannel extends javax.swing.JPanel {
                                 .addGap(5, 5, 5)
                                 .addComponent(Custom_ID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(EditCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton4)
-                                    .addComponent(jButton5)))
+                                .addGroup(EditCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(EditCustomerDetailsMainPannelLayout.createSequentialGroup()
                                 .addComponent(phone_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(EditCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(phoneDetailsUpdate)
-                                    .addComponent(phoneDetailsDelete))))
+                                .addGroup(EditCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(phoneDetailsDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(phoneDetailsUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(EditCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,7 +603,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Salitha_ITP_Submit.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/ADD_SELECTED.png"))); // NOI18N
         jButton6.setText("Submit");
         jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -629,7 +619,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
         packages.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Salitha_ITP_12.png"))); // NOI18N
         packages.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                packagesmouceClicked(evt);
+                packagesListClicked(evt);
             }
         });
         packages.addActionListener(new java.awt.event.ActionListener() {
@@ -647,6 +637,11 @@ public class ReceptionPannel extends javax.swing.JPanel {
         RoomDetailsDetailsPannel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 RoomDetailsDetailsPannelMouseClicked(evt);
+            }
+        });
+        RoomDetailsDetailsPannel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RoomDetailsDetailsPannelActionPerformed(evt);
             }
         });
 
@@ -702,10 +697,24 @@ public class ReceptionPannel extends javax.swing.JPanel {
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel28.setText("Check available Rooms");
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Salitha_ITP_Reset.png"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/reset_selected.png"))); // NOI18N
         jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 resetBookingDetails(evt);
+            }
+        });
+
+        jLabel29.setText("Date");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setText("Reports");
+
+        RoomDetailsDetailsPannel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        RoomDetailsDetailsPannel1.setForeground(new java.awt.Color(102, 0, 0));
+        RoomDetailsDetailsPannel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Black/Group 53.png"))); // NOI18N
+        RoomDetailsDetailsPannel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bookingReportMouseClicked(evt);
             }
         });
 
@@ -714,15 +723,25 @@ public class ReceptionPannel extends javax.swing.JPanel {
         EnterBookingDetailsMainPannelLayout.setHorizontalGroup(
             EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
                 .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(298, 298, 298)
+                        .addComponent(searchBookingDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cusIdcombo2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
                                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -740,49 +759,54 @@ public class ReceptionPannel extends javax.swing.JPanel {
                                 .addGap(52, 52, 52)
                                 .addComponent(noOfDays, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(noofDaysError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(noofDaysError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                                .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cusIdcombo2, 0, 412, Short.MAX_VALUE)
+                                    .addComponent(Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addGap(196, 196, 196)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(176, 176, 176))
                     .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                        .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(packages, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGap(144, 144, 144)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(RoomDetailsDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(packages, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                                    .addGap(13, 13, 13)
+                                    .addComponent(RoomDetailsDetailsPannel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterBookingDetailsMainPannelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(RoomDetailsDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(148, 148, 148))))
-            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(146, 146, 146)
-                        .addComponent(searchBookingDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146))))
         );
         EnterBookingDetailsMainPannelLayout.setVerticalGroup(
             EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
                 .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(packages, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(RoomDetailsDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -806,29 +830,36 @@ public class ReceptionPannel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cusIdcombo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RoomDetailsDetailsPannel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(packages, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(22, 22, 22)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 17, Short.MAX_VALUE)
+                            .addComponent(cusIdcombo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBookingDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(RoomDetailsDetailsPannel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(EnterBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(searchBookingDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29))
+                    .addGroup(EnterBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         MainPannel.add(EnterBookingDetailsMainPannel, "card3");
@@ -850,7 +881,8 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
         vips.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VIP", "Not" }));
 
-        jButton11.setText("Save");
+        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/UPDATE_SELECTED.png"))); // NOI18N
         jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton11updateBookingDetails(evt);
@@ -862,7 +894,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
             }
         });
 
-        jButton12.setText("Delete");
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/DELETE_NORMAL.png"))); // NOI18N
         jButton12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton12deleteBookingDetails(evt);
@@ -912,7 +944,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
         packageButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         packageButton.setForeground(new java.awt.Color(102, 51, 0));
-        packageButton.setText("Packages");
+        packageButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Salitha_ITP_12.png"))); // NOI18N
         packageButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 packageButtonmouceClicked(evt);
@@ -921,7 +953,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
         room_table.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         room_table.setForeground(new java.awt.Color(102, 51, 0));
-        room_table.setText("Rooms Table");
+        room_table.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Salitha_ITP_11.png"))); // NOI18N
         room_table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 room_tableRoomDetailsDetailsPannelMouseClicked(evt);
@@ -936,55 +968,65 @@ public class ReceptionPannel extends javax.swing.JPanel {
         EditBookingDetailsMainPannelLayout.setHorizontalGroup(
             EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(booking_ID)
-                                    .addComponent(cusIDs, 0, 260, Short.MAX_VALUE)
-                                    .addComponent(package_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(27, 27, 27)
-                                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(arooms, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                                    .addComponent(nday, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(vips, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGap(105, 105, 105)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchBookingDetails2, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(103, 103, 103))
-                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(packageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(room_table, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(64, 64, 64))))
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(booking_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cusIDs, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(package_type, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator8)
-                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 12, Short.MAX_VALUE)))))
-                .addContainerGap())
+                            .addComponent(room_table, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(packageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(176, 176, 176))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                            .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                                    .addGap(105, 105, 105)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(searchBookingDetails2, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                            .addContainerGap(385, Short.MAX_VALUE)
+                            .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                                    .addComponent(vips, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(55, 55, 55))
+                                .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                                    .addComponent(nday, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(58, 58, 58))
+                                .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                                    .addComponent(arooms, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(55, 55, 55)))))
+                    .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                        .addGap(214, 214, 214)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(463, 463, 463))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator8))
         );
         EditBookingDetailsMainPannelLayout.setVerticalGroup(
             EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -995,45 +1037,41 @@ public class ReceptionPannel extends javax.swing.JPanel {
                         .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
                                 .addGap(15, 15, 15)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(booking_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(nday, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(96, 96, 96))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(cusIDs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(arooms, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(package_type, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(vips, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(52, 52, 52)
-                                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(packageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(room_table, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(103, 103, 103))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditBookingDetailsMainPannelLayout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)))
-                                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                            .addComponent(searchBookingDetails2))))
+                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(booking_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nday, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cusIDs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(arooms, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(package_type, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(vips, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(39, 39, 39))
+                            .addGroup(EditBookingDetailsMainPannelLayout.createSequentialGroup()
+                                .addComponent(room_table, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(packageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(EditBookingDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchBookingDetails2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(216, Short.MAX_VALUE))
@@ -1057,8 +1095,10 @@ public class ReceptionPannel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Salitha_ITP_Submit.png"))); // NOI18N
-        jButton1.setText("submit");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/ADD_NORMAL.png"))); // NOI18N
+        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/ADD_SELECTED.png"))); // NOI18N
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/ADD_SELECTED.png"))); // NOI18N
+        jButton1.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/ADD_SELECTED.png"))); // NOI18N
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1addCustomerDetails(evt);
@@ -1160,7 +1200,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
         cusIdcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Salitha_ITP_Submit.png"))); // NOI18N
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/ADD_NORMAL.png"))); // NOI18N
         jButton15.setText("submit");
         jButton15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1189,11 +1229,21 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
         phoneValid.setForeground(new java.awt.Color(255, 0, 0));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Salitha_ITP_Reset.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Internal_UI/reset_normal.png"))); // NOI18N
         jButton2.setText("reset");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 resetCustomerDetails(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel14.setText("Reports ");
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/KitchenButtons/Black/Group 53.png"))); // NOI18N
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customerReportMouseClick(evt);
             }
         });
 
@@ -1221,7 +1271,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)))
+                                .addGap(26, 26, 26)))
                         .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -1235,22 +1285,32 @@ public class ReceptionPannel extends javax.swing.JPanel {
                                 .addComponent(customer_email)))))
                 .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(134, 134, 134))
-                    .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                                .addComponent(customer_phoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(phoneValid, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cusIdcombo, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(137, 137, 137)
+                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cusIdcombo, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
+                                        .addComponent(customer_phoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(phoneValid, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
+                                .addGap(159, 159, 159)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(189, 189, 189))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(242, 242, 242))))))
             .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
                 .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1122, Short.MAX_VALUE)
@@ -1273,12 +1333,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
         EnterCustomerDetailsMainPannelLayout.setVerticalGroup(
             EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cusIdcombo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
                         .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
@@ -1290,17 +1345,12 @@ public class ReceptionPannel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(customer_address, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(6, 6, 6)
-                .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(customer_nationality, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(customer_phoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(phoneValid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(customer_nationality, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
                         .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(customer_nic, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1308,23 +1358,35 @@ public class ReceptionPannel extends javax.swing.JPanel {
                         .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
                                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                                .addComponent(customer_passport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                                .addComponent(customer_passport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(customer_email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(11, 11, 11))
+                    .addGroup(EnterCustomerDetailsMainPannelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cusIdcombo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(customer_phoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(phoneValid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)))
-                .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(customer_email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(11, 11, 11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1336,87 +1398,10 @@ public class ReceptionPannel extends javax.swing.JPanel {
                 .addGroup(EnterCustomerDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(0, 195, Short.MAX_VALUE))
+                .addGap(0, 194, Short.MAX_VALUE))
         );
 
         MainPannel.add(EnterCustomerDetailsMainPannel, "card1");
-
-        ReportsMainPannel.setPreferredSize(new java.awt.Dimension(1177, 771));
-
-        jLabel13.setFont(new java.awt.Font("Sylfaen", 3, 48)); // NOI18N
-        jLabel13.setText("No idea yet");
-
-        javax.swing.GroupLayout ReportsMainPannelLayout = new javax.swing.GroupLayout(ReportsMainPannel);
-        ReportsMainPannel.setLayout(ReportsMainPannelLayout);
-        ReportsMainPannelLayout.setHorizontalGroup(
-            ReportsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ReportsMainPannelLayout.createSequentialGroup()
-                .addGap(193, 193, 193)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(305, Short.MAX_VALUE))
-        );
-        ReportsMainPannelLayout.setVerticalGroup(
-            ReportsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ReportsMainPannelLayout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(378, Short.MAX_VALUE))
-        );
-
-        MainPannel.add(ReportsMainPannel, "card5");
-
-        DisplayRoomDetailsMainPannel.setPreferredSize(new java.awt.Dimension(1177, 771));
-
-        RoomDetailsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane9.setViewportView(RoomDetailsTable);
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel14.setText("Room Table");
-
-        searchRoom.setText("search");
-        searchRoom.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                searchRoomKeyReleased(evt);
-            }
-        });
-
-        javax.swing.GroupLayout DisplayRoomDetailsMainPannelLayout = new javax.swing.GroupLayout(DisplayRoomDetailsMainPannel);
-        DisplayRoomDetailsMainPannel.setLayout(DisplayRoomDetailsMainPannelLayout);
-        DisplayRoomDetailsMainPannelLayout.setHorizontalGroup(
-            DisplayRoomDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DisplayRoomDetailsMainPannelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(DisplayRoomDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(DisplayRoomDetailsMainPannelLayout.createSequentialGroup()
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(245, 245, 245)
-                        .addComponent(searchRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(99, Short.MAX_VALUE))
-        );
-        DisplayRoomDetailsMainPannelLayout.setVerticalGroup(
-            DisplayRoomDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DisplayRoomDetailsMainPannelLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(DisplayRoomDetailsMainPannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(searchRoom))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
-        );
-
-        MainPannel.add(DisplayRoomDetailsMainPannel, "card6");
 
         DisplayPackagesPanel.setPreferredSize(new java.awt.Dimension(1177, 771));
 
@@ -1450,21 +1435,22 @@ public class ReceptionPannel extends javax.swing.JPanel {
                 .addGroup(DisplayPackagesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DisplayPackagesPanelLayout.createSequentialGroup()
                         .addGap(80, 80, 80)
-                        .addComponent(packageTablePannel, javax.swing.GroupLayout.PREFERRED_SIZE, 1016, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(DisplayPackagesPanelLayout.createSequentialGroup()
-                        .addGap(432, 432, 432)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(packageTablePannel, javax.swing.GroupLayout.PREFERRED_SIZE, 1016, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DisplayPackagesPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(437, 437, 437)))
                 .addComponent(hello, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
         );
         DisplayPackagesPanelLayout.setVerticalGroup(
             DisplayPackagesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(hello, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
             .addGroup(DisplayPackagesPanelLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(38, 38, 38)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(packageTablePannel, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(packageTablePannel, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1501,7 +1487,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
         String passportNo = Cpassport.getText();
         
         Pattern customemailPattern = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
-        //Error
+        
         Matcher matach = customemailPattern.matcher(CEmail.getText());
         if(matach.matches()){
 
@@ -1509,6 +1495,17 @@ public class ReceptionPannel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Enter correct email","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
+        Pattern NICPattern = Pattern.compile("^([0-9]{9}[v|V]|[0-9]{12})$");
+        
+        //check nic validation
+        Matcher matach2 = NICPattern.matcher(CNIC.getText());
+        if(matach2.matches()){
+            
+        }else{
+            JOptionPane.showMessageDialog(this, "Please Enter correct NIC","Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         boolean status = DBHelper.UpdateCustomerDetails(id, customername, address, passportNo, nationality, NIC, customeremail);
         if (status == true){
             JOptionPane.showMessageDialog(this,"Customer Details Updated successfully","Massage",JOptionPane.INFORMATION_MESSAGE);
@@ -1707,6 +1704,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
         String packages;
         String vip ;
         String customID;
+        String date = null;
 
         try{
             NoOfDays = noOfDays.getText();
@@ -1714,12 +1712,31 @@ public class ReceptionPannel extends javax.swing.JPanel {
             packages = Packages.getSelectedItem().toString();
             vip = VIP.getSelectedItem().toString();
             customID = cusIdcombo2.getSelectedItem().toString();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            date = dateFormat.format(Date.getDate());
+            System.out.println(date);
 
             if(noOfDays.getText().equals("")){
                 JOptionPane.showMessageDialog(this,"Please enter the value","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if(AssignedRooms.getText().equals("")){
+                JOptionPane.showMessageDialog(this,"Please enter the value","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(Packages.getSelectedItem().toString().equals("")){
+                JOptionPane.showMessageDialog(this,"Please enter the value","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(VIP.getSelectedItem().toString().equals("")){
+                JOptionPane.showMessageDialog(this,"Please enter the value","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(cusIdcombo2.getSelectedItem().toString().equals("")){
+                JOptionPane.showMessageDialog(this,"Please enter the value","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if(Date.getDate().toString().equals("")){
                 JOptionPane.showMessageDialog(this,"Please enter the value","Error",JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -1741,8 +1758,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
                 cID = rs.getString("CID");
 
                 if (
-                    assignedRooms.replaceAll("\\s+","").equalsIgnoreCase(rooms.replaceAll("\\s+","")) ||
-                    customID.replaceAll("\\s+","").equalsIgnoreCase(cID.replaceAll("\\s+",""))){
+                    assignedRooms.replaceAll("\\s+","").equalsIgnoreCase(rooms.replaceAll("\\s+",""))){
                     JOptionPane.showMessageDialog(this,"Details are already exist","Error",JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -1751,125 +1767,32 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
             System.out.println("Error");
         }
-
-        DBHelper.addCustomerBookingdetails(NoOfDays, assignedRooms, packages, vip, customID);
+        System.out.println(date);
+        DBHelper.addCustomerBookingdetails(NoOfDays, assignedRooms, packages, vip, customID , date);
 
         fillCustomerBookingDetailstable();
     }//GEN-LAST:event_jButton6addCustomerBookingDetails
-
-    private void packagesmouceClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_packagesmouceClicked
+    PackageListForReception pr;
+    private void packagesListClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_packagesListClicked
         // TODO add your handling code here:
-        if(evt.getSource() == EnterCustomerDetailsPannel)
-        {
-            EnterCustomerDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == EditCustomerDetailsPannel)
-        {
-            EditCustomerDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == EditCustomerDetailsPannel)
-        {
-            EditCustomerDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == EnterBookingDetailsPannel)
-        {
-            EnterBookingDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == EditBookingDetailsPannel)
-        {
-            EditBookingDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == Report_Panel)
-        {
-            Report_Panel.setBackground(new Color(51,204,51));
-        }
-
-        //Panel Selecting Command
-        if(evt.getSource() == EnterCustomerDetailsPannel)
-        {
-            EnterCustomerDetailsMainPannel.setVisible(true);
-            EditCustomerDetailsMainPannel.setVisible(false);
-            EnterBookingDetailsMainPannel.setVisible(false);
-            EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
-        }
-        if(evt.getSource() == EditCustomerDetailsPannel)
-        {
-            EnterCustomerDetailsMainPannel.setVisible(false);
-            EditCustomerDetailsMainPannel.setVisible(true);
-            EnterBookingDetailsMainPannel.setVisible(false);
-            EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
-        }
-        if(evt.getSource() == EnterBookingDetailsPannel)
-        {
-            EditCustomerDetailsMainPannel.setVisible(false);
-            EnterCustomerDetailsMainPannel.setVisible(false);
-            EnterBookingDetailsMainPannel.setVisible(true);
-            EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
-        }
-
-        if(evt.getSource() == EditBookingDetailsPannel)
-        {
-            EditCustomerDetailsMainPannel.setVisible(false);
-            EnterCustomerDetailsMainPannel.setVisible(false);
-            EnterBookingDetailsMainPannel.setVisible(false);
-            EditBookingDetailsMainPannel.setVisible(true);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
-        }
-        //
-        if(evt.getSource() == Report_Panel)
-        {
-            EditCustomerDetailsMainPannel.setVisible(false);
-            EnterCustomerDetailsMainPannel.setVisible(false);
-            EnterBookingDetailsMainPannel.setVisible(false);
-            EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(true);
-            DisplayRoomDetailsMainPannel.setVisible(false);
-        }
-        if(evt.getSource() == packages || evt.getSource() == packageButton)
-        {
-            EditCustomerDetailsMainPannel.setVisible(false);
-            EnterCustomerDetailsMainPannel.setVisible(false);
-            EnterBookingDetailsMainPannel.setVisible(false);
-            EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
-            DisplayPackagesPanel.setVisible(true);
-        }
-
-        //Navigate back to the MainMenu
-        if(evt.getSource() == Home_Btn){
-            MainMenu menu = new MainMenu();
-            this.setVisible(false);
-            menu.setVisible(true);
-            System.out.println("Clicked");
-
-        }
-
-    }//GEN-LAST:event_packagesmouceClicked
+        try {
+               DBHelper.genaratePackageReport();
+        } catch (JRException  | java.lang.NumberFormatException e) {
+               e.printStackTrace();
+         }
+    }//GEN-LAST:event_packagesListClicked
 
     private void packagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_packagesActionPerformed
         // TODO add your handling code here:
 
     }//GEN-LAST:event_packagesActionPerformed
-
+    RoomTableForReception rs;
     private void RoomDetailsDetailsPannelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RoomDetailsDetailsPannelMouseClicked
         // TODO add your handling code here:
-        if(evt.getSource() == RoomDetailsDetailsPannel || evt.getSource() ==room_table)
-        {
-            EditCustomerDetailsMainPannel.setVisible(false);
-            EnterCustomerDetailsMainPannel.setVisible(false);
-            EnterBookingDetailsMainPannel.setVisible(false);
-            EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(true);
+        if (rs == null) {
+            rs = new RoomTableForReception();
         }
+        rs.setVisible(true);
     }//GEN-LAST:event_RoomDetailsDetailsPannelMouseClicked
 
     private void searchBookingDetailsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBookingDetailsKeyReleased
@@ -1986,34 +1909,9 @@ public class ReceptionPannel extends javax.swing.JPanel {
         editBookingtable.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_searchBookingDetails2KeyReleased
-
-    private void packageButtonmouceClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_packageButtonmouceClicked
-        // TODO add your handling code here:
+    //
+    public void packageButtonmouce1Clicked(java.awt.event.MouseEvent evt){
         
-        if(evt.getSource() == EnterCustomerDetailsPannel)
-        {
-            EnterCustomerDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == EditCustomerDetailsPannel)
-        {
-            EditCustomerDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == EditCustomerDetailsPannel)
-        {
-            EditCustomerDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == EnterBookingDetailsPannel)
-        {
-            EnterBookingDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == EditBookingDetailsPannel)
-        {
-            EditBookingDetailsPannel.setBackground(new Color(51,204,51));
-        }
-        if(evt.getSource() == Report_Panel)
-        {
-            Report_Panel.setBackground(new Color(51,204,51));
-        }
 
         //Panel Selecting Command
         if(evt.getSource() == EnterCustomerDetailsPannel)
@@ -2022,8 +1920,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
             EditCustomerDetailsMainPannel.setVisible(false);
             EnterBookingDetailsMainPannel.setVisible(false);
             EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
         }
         if(evt.getSource() == EditCustomerDetailsPannel)
         {
@@ -2031,8 +1927,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
             EditCustomerDetailsMainPannel.setVisible(true);
             EnterBookingDetailsMainPannel.setVisible(false);
             EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
         }
         if(evt.getSource() == EnterBookingDetailsPannel)
         {
@@ -2040,8 +1934,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
             EnterCustomerDetailsMainPannel.setVisible(false);
             EnterBookingDetailsMainPannel.setVisible(true);
             EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
         }
 
         if(evt.getSource() == EditBookingDetailsPannel)
@@ -2050,18 +1942,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
             EnterCustomerDetailsMainPannel.setVisible(false);
             EnterBookingDetailsMainPannel.setVisible(false);
             EditBookingDetailsMainPannel.setVisible(true);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
-        }
-        //
-        if(evt.getSource() == Report_Panel)
-        {
-            EditCustomerDetailsMainPannel.setVisible(false);
-            EnterCustomerDetailsMainPannel.setVisible(false);
-            EnterBookingDetailsMainPannel.setVisible(false);
-            EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(true);
-            DisplayRoomDetailsMainPannel.setVisible(false);
         }
         if(evt.getSource() == packages || evt.getSource() == packageButton)
         {
@@ -2069,33 +1949,33 @@ public class ReceptionPannel extends javax.swing.JPanel {
             EnterCustomerDetailsMainPannel.setVisible(false);
             EnterBookingDetailsMainPannel.setVisible(false);
             EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(false);
             DisplayPackagesPanel.setVisible(true);
         }
 
         //Navigate back to the MainMenu
         if(evt.getSource() == Home_Btn){
-            MainMenu menu = new MainMenu();
-            this.setVisible(false);
-            menu.setVisible(true);
-            System.out.println("Clicked");
+            if(evt.getSource() == Home_Btn){
+            changeFunction("Home");
 
         }
 
+        }
+    }
+    private void packageButtonmouceClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_packageButtonmouceClicked
+        // TODO add your handling code here:
+        try {
+             DBHelper.genaratePackageReport();
+        } catch (JRException  | java.lang.NumberFormatException e) {
+                e.printStackTrace();
+         }
     }//GEN-LAST:event_packageButtonmouceClicked
 
     private void room_tableRoomDetailsDetailsPannelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_room_tableRoomDetailsDetailsPannelMouseClicked
         // TODO add your handling code here:
-        if(evt.getSource() == RoomDetailsDetailsPannel || evt.getSource() ==room_table)
-        {
-            EditCustomerDetailsMainPannel.setVisible(false);
-            EnterCustomerDetailsMainPannel.setVisible(false);
-            EnterBookingDetailsMainPannel.setVisible(false);
-            EditBookingDetailsMainPannel.setVisible(false);
-            ReportsMainPannel.setVisible(false);
-            DisplayRoomDetailsMainPannel.setVisible(true);
+        if (rs == null) {
+            rs = new RoomTableForReception();
         }
+        rs.setVisible(true);
     }//GEN-LAST:event_room_tableRoomDetailsDetailsPannelMouseClicked
 
     private void customer_nationalitynationalityValidation(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customer_nationalitynationalityValidation
@@ -2110,16 +1990,16 @@ public class ReceptionPannel extends javax.swing.JPanel {
             customer_nic.setText("");
         }
     }//GEN-LAST:event_customer_nationalitynationalityValidation
-
+    //add customer details 
     private void jButton1addCustomerDetails(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1addCustomerDetails
-        // TODO add your handling code here:
+        //take enter values values into string variable 
         String customername = customer_name.getText();
         String address = customer_address.getText();
         String customeremail = customer_email.getText();
         String nationality = customer_nationality.getSelectedItem().toString();
         String NIC = customer_nic.getText();
         String passportNo = customer_passport.getText();
-
+        //null value validation
         if(customer_name.getText().equals("")){
             JOptionPane.showMessageDialog(this,"Please enter the value","Error",JOptionPane.ERROR_MESSAGE);
             return;
@@ -2136,21 +2016,20 @@ public class ReceptionPannel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this,"Please enter the value","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+           //email validation
         Pattern customemailPattern = Pattern.compile("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
-        //Error
         Matcher matach = customemailPattern.matcher(customer_email.getText());
-
+        //check email validation
         if(matach.matches()){
 
         }else{
             JOptionPane.showMessageDialog(this, "Please Enter correct email","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+        //nic validation (new format and old format)
         Pattern NICPattern = Pattern.compile("^([0-9]{9}[v|V]|[0-9]{12})$");
         
-        //Error
+        //check nic validation
         Matcher matach2 = NICPattern.matcher(customer_nic.getText());
         if(matach2.matches()){
             
@@ -2158,7 +2037,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Enter correct NIC","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        //call dbhelper and the select customer details method to validation
         DBHelper dbhelper = new DBHelper();
         ResultSet rs = dbhelper.SelectCustomerCustomDetails();
         try{
@@ -2169,12 +2048,14 @@ public class ReceptionPannel extends javax.swing.JPanel {
             String PassportNo;
 
             while(rs.next()){
+                //here we take the database values into an variable
                 Name = rs.getString("CName");
                 Adddress = rs.getString("Address");
                 Customeremail = rs.getString("Cemail");
                 Customer_NIC = rs.getString("NIC");
                 PassportNo = rs.getString("PassportNo");
-
+                //--------------------------------duplicate value validation-------------------------------------------------
+                //check enter value is equal to database value
                 if(address.replaceAll("\\s+","").equalsIgnoreCase(Adddress.replaceAll("\\s+",""))){
                     JOptionPane.showMessageDialog(this,"customer address is already exist","Error",JOptionPane.ERROR_MESSAGE);
                     return;
@@ -2201,9 +2082,11 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
             System.out.println("Error");
         }
-
+        //call insert method to insert values 
         DBHelper.addCustomerdetails(customername, address, passportNo, nationality, NIC, customeremail);
+        //Method to fill the customer details table
         fillCustomerDetailstable();
+        //Method to fill the customer id into dropdowns
         FillDropDown();
 
     }//GEN-LAST:event_jButton1addCustomerDetails
@@ -2216,13 +2099,13 @@ public class ReceptionPannel extends javax.swing.JPanel {
         CustomerDetailsTable.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_searchCustomerdetailscustomerDetailsSearch
-
+    //add customer phone details 
     private void jButton15customerPhoneSubmit(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton15customerPhoneSubmit
-        // TODO add your handling code here:
-
+        
+        //take enter values values into string variable 
         String customID = cusIdcombo.getSelectedItem().toString();
         String phoneNo = customer_phoneNo.getText();
-
+        //null value validation
         if(customID.equals("")){
             JOptionPane.showMessageDialog(this,"Please select a customerID before adding","Error",JOptionPane.ERROR_MESSAGE);
             return;
@@ -2231,25 +2114,28 @@ public class ReceptionPannel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this,"Please enter a phone Number before adding","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
+        //phone number validation
         Pattern customphonePattern = Pattern.compile("^[0-2][0-9]{9}$");
         //Error
         Matcher matach = customphonePattern.matcher(customer_phoneNo.getText());
-
+        //check phone number validation
         if(matach.matches()){
 
         }else{
             JOptionPane.showMessageDialog(this, "Please Enter correct mobile number","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
+        //call dbhelper and the select customer contact details method to validation
         DBHelper dbhelper = new DBHelper();
         ResultSet rsphone = dbhelper.SelectCustomerContactDetails();
         try{
 
             String p_Num;
             while(rsphone.next()){
-
+                //here we take the database values into an variable
                 p_Num = rsphone.getString("Phone_num");
-                //System.out.println(name);
+                //--------------------------------duplicate value validation-------------------------------------------------
+                //check enter value is equal to database value
                 if (phoneNo.replaceAll("\\s+","").equalsIgnoreCase(p_Num.replaceAll("\\s+",""))){
 
                     JOptionPane.showMessageDialog(this,"this phone number is already exist","Error",JOptionPane.ERROR_MESSAGE);
@@ -2263,16 +2149,9 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
             System.out.println("Error");
         }
+        //call insert method to insert values 
         DBHelper.addPhoneCustomerdetails(customID, phoneNo);
-
-        /**if(status == true){
-
-        } else if (status == false) {
-
-            JOptionPane.showMessageDialog(this,"Something is wrong!","Error",JOptionPane.ERROR_MESSAGE);
-
-        }**/
-
+        //Method to fill the customer phone details table
         fillcustomerContactDetailsTable();
     }//GEN-LAST:event_jButton15customerPhoneSubmit
 
@@ -2284,15 +2163,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
         contactTable.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_searchCustomerPhoneKeyReleased
-
-    private void searchRoomKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchRoomKeyReleased
-        // TODO add your handling code here:
-        DefaultTableModel table = (DefaultTableModel) RoomDetailsTable.getModel();
-        String search = searchRoom.getText();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
-        RoomDetailsTable.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(search));
-    }//GEN-LAST:event_searchRoomKeyReleased
     
     public void fillCustomerBookingDetailstable() {
          DBHelper dbhelper = new DBHelper();
@@ -2313,8 +2183,8 @@ public class ReceptionPannel extends javax.swing.JPanel {
         //Set table view
         customPhoneTableEdit.setModel(DbUtils.resultSetToTableModel (rs1));
     }
+    //Method to fill the customer id into dropdowns
     public void FillDropDown(){
-        //Filling the Menu Drop down in the first page
         DBHelper dbhelper = new DBHelper();
         ResultSet rs = dbhelper.SelectCustomerCustomDetails();
         //Removing the default vales in the drop downs
@@ -2325,10 +2195,10 @@ public class ReceptionPannel extends javax.swing.JPanel {
         try {
              String id;
             while(rs.next()){
-            id = rs.getString(Reception_COL1);
-            cusIdcombo.addItem(id);
-            cusIdcombo2.addItem(id);
-            cusIDs.addItem(id);
+                id = rs.getString(Reception_COL1);
+                cusIdcombo.addItem(id);
+                cusIdcombo2.addItem(id);
+                cusIDs.addItem(id);
         }
         } catch (SQLException e){
             System.out.println("Something is wrong with a drop down menu");
@@ -2360,7 +2230,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
     
     
 //-------------------- Table Populating code --------------------
-//Creating a Method to fill the Menu item table
+//Creating a Method to fill the customer details table
     public  void fillCustomerDetailstable()
     {
         //Creating a Database Helper object
@@ -2372,13 +2242,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
         CustomerDetailsTable.setModel(DbUtils.resultSetToTableModel(rs));
         CustomerDetailsTable1.setModel(DbUtils.resultSetToTableModel(rs1));
     }
-    public void displayRoomDetails(){
-        DBHelper dbhelper = new DBHelper();
-        //Calling method 
-        ResultSet rs = dbhelper.SelectRoomDetails();
-        //set the table view
-        RoomDetailsTable.setModel(DbUtils.resultSetToTableModel(rs));
-    }
+    //Creating a Method to fill the package details table
     public void displaypackageDetailsforReception(){
         DBHelper dbhelper = new DBHelper();
         //Calling method 
@@ -2392,32 +2256,27 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
     private void EnterCustomerDetailsPannelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnterCustomerDetailsPannelMouseClicked
         // TODO add your handling code here:
-        packageButtonmouceClicked(evt);
+        packageButtonmouce1Clicked(evt);
     }//GEN-LAST:event_EnterCustomerDetailsPannelMouseClicked
 
     private void EditCustomerDetailsPannelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditCustomerDetailsPannelMouseClicked
         // TODO add your handling code here:
-        packageButtonmouceClicked(evt);
+        packageButtonmouce1Clicked(evt);
     }//GEN-LAST:event_EditCustomerDetailsPannelMouseClicked
 
     private void EnterBookingDetailsPannelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EnterBookingDetailsPannelMouseClicked
         // TODO add your handling code here:
-        packageButtonmouceClicked(evt);
+        packageButtonmouce1Clicked(evt);
     }//GEN-LAST:event_EnterBookingDetailsPannelMouseClicked
 
     private void EditBookingDetailsPannelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditBookingDetailsPannelMouseClicked
         // TODO add your handling code here:
-        packageButtonmouceClicked(evt);
+        packageButtonmouce1Clicked(evt);
     }//GEN-LAST:event_EditBookingDetailsPannelMouseClicked
-
-    private void Report_PanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Report_PanelMouseClicked
-        // TODO add your handling code here:
-        packageButtonmouceClicked(evt);
-    }//GEN-LAST:event_Report_PanelMouseClicked
 
     private void Home_BtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Home_BtnMouseClicked
         // TODO add your handling code here:
-        packageButtonmouceClicked(evt);
+        packageButtonmouce1Clicked(evt);
     }//GEN-LAST:event_Home_BtnMouseClicked
 
     private void noOfDaysKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noOfDaysKeyPressed
@@ -2452,8 +2311,9 @@ public class ReceptionPannel extends javax.swing.JPanel {
     }//GEN-LAST:event_customer_emailActionPerformed
 
     private void customer_phoneNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_customer_phoneNoKeyPressed
-        // TODO add your handling code here:
+        //get enter character value
         char c = evt.getKeyChar();
+        //check whether it is a letter (not a number
         if(Character.isLetter(c)){
             //can't able to enter in text field if enter char is not number
             customer_phoneNo.setEditable(false);
@@ -2469,6 +2329,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
 
     private void resetCustomerDetails(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetCustomerDetails
         // TODO add your handling code here:
+        //when the button press set the values of text fields to empty values
         customer_name.setText("");
         customer_address.setText("");
         customer_email.setText("");
@@ -2486,6 +2347,30 @@ public class ReceptionPannel extends javax.swing.JPanel {
          cusIdcombo2.setSelectedItem("");
     }//GEN-LAST:event_resetBookingDetails
 
+    private void RoomDetailsDetailsPannelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomDetailsDetailsPannelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RoomDetailsDetailsPannelActionPerformed
+    BookingReports BR;
+    private void bookingReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingReportMouseClicked
+        // TODO add your handling code here:
+        if (BR == null) {
+            BR = new BookingReports();
+        }
+        BR.setVisible(true);
+    }//GEN-LAST:event_bookingReportMouseClicked
+    CustomerReports cr;
+    private void customerReportMouseClick(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerReportMouseClick
+        // TODO add your handling code here:
+        if (cr == null) {
+            cr = new CustomerReports();
+        }
+        cr.setVisible(true);
+    }//GEN-LAST:event_customerReportMouseClick
+
+    private void EnterCustomerDetailsPannelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterCustomerDetailsPannelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EnterCustomerDetailsPannelActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AssignedRooms;
@@ -2498,8 +2383,8 @@ public class ReceptionPannel extends javax.swing.JPanel {
     private javax.swing.JTextField Custom_ID;
     private javax.swing.JTable CustomerDetailsTable;
     private javax.swing.JTable CustomerDetailsTable1;
+    private com.toedter.calendar.JDateChooser Date;
     private javax.swing.JPanel DisplayPackagesPanel;
-    private javax.swing.JPanel DisplayRoomDetailsMainPannel;
     private javax.swing.JPanel EditBookingDetailsMainPannel;
     private javax.swing.JButton EditBookingDetailsPannel;
     private javax.swing.JPanel EditCustomerDetailsMainPannel;
@@ -2512,10 +2397,8 @@ public class ReceptionPannel extends javax.swing.JPanel {
     private javax.swing.JPanel MainPannel;
     private javax.swing.JComboBox<String> Packages;
     private javax.swing.ButtonGroup ReceptionbuttonGroup;
-    private javax.swing.JButton Report_Panel;
-    private javax.swing.JPanel ReportsMainPannel;
     private javax.swing.JButton RoomDetailsDetailsPannel;
-    private javax.swing.JTable RoomDetailsTable;
+    private javax.swing.JButton RoomDetailsDetailsPannel1;
     private javax.swing.JComboBox<String> VIP;
     private javax.swing.JTextField arooms;
     private javax.swing.JTable bookingTable;
@@ -2540,6 +2423,7 @@ public class ReceptionPannel extends javax.swing.JPanel {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -2548,7 +2432,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -2565,12 +2448,14 @@ public class ReceptionPannel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2578,7 +2463,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -2605,7 +2489,6 @@ public class ReceptionPannel extends javax.swing.JPanel {
     private javax.swing.JTextField searchCusPhoneDetails;
     private javax.swing.JTextField searchCustomerPhone;
     private javax.swing.JTextField searchCustomerdetails;
-    private javax.swing.JTextField searchRoom;
     private javax.swing.JPanel sidePanel;
     private javax.swing.JComboBox<String> vips;
     // End of variables declaration//GEN-END:variables

@@ -185,9 +185,9 @@ public final class TableModel {
     
     //virtual table
     public static class PackageFacilityvTable{
-        public static final String SELECT = "pf.id, p.Name, f.name";
-        public static final String FROM = "package p, facility f, package_facility_table pf";
-        public static final String WHERE = "(f.FID = pf.fID) AND (p.PID = pf.PID)";
+        public static final String SELECTNEW = "pf.id, p.Name, f.name";
+        public static final String FROMNew = "package p, facility f, package_facility_table pf";
+        public static final String WHERENEW = "(f.FID = pf.fID) AND (p.PID = pf.PID)";
     }
     
     

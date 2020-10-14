@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RoomInventory" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e4709e89-ee83-4b53-aea8-5e56e73c6d90">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter package"/>
+	<queryString language="SQL">
+		<![CDATA[select * from room_other_request]]>
+	</queryString>
+	<field name="RSNID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="RSNID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="InventoryItem" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="InventoryItem"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="Quantity" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="Amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="Amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="Booking_BID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Booking_BID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="ExrtaExpences_ExID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ExrtaExpences_ExID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="20" width="471" height="41" forecolor="#DB2E56" uuid="8b3553fe-c625-4db8-a0d7-447ec068d446"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Hotel Room Manangment System]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="90" y="11" width="321" height="29" uuid="90684266-804d-4021-b82d-6ea2ba836906"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inventory Request Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="30" width="60" height="30" uuid="86d71955-91fb-46fd-950f-d1079c2de4dd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a5fade1-d329-4268-b728-a8d5e9968eda"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[RSNID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="31" width="100" height="30" uuid="affd540d-27c9-427a-b481-cb68e2d9e7e0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b8b70b66-045e-40df-9120-ddb5b0b3006c"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[InventoryItem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="30" width="60" height="30" uuid="54e1e1a6-1fda-45a6-bf60-53476fc2be7d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5ec671f-d5ca-4a74-ba5e-e50d69a4ea53"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="30" width="88" height="30" uuid="c5caa0cc-6147-41d2-b24e-b8f31a7c7d9a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34dd220d-a369-4d4c-8dfb-2aa8cc8706fd"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="30" width="100" height="30" uuid="5c16befa-6fa8-4fd1-88f6-81c015836445">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="af6c1cc3-4976-47b2-83f2-60b920c6429d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="30" width="80" height="30" uuid="28dc3795-cd37-4825-9689-86a2da6555c2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4debd9a0-4f5b-4234-ba30-df60d3c17c92"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[BID]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="70" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="40" width="60" height="30" uuid="9d41bfa5-d603-46f7-91d5-45d25ebbb114">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a5fade1-d329-4268-b728-a8d5e9968eda"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RSNID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="40" width="100" height="30" uuid="42c4f736-23ac-4da1-a300-b00c7dd573de">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b8b70b66-045e-40df-9120-ddb5b0b3006c"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{InventoryItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="40" width="60" height="30" uuid="a7f7acac-9df3-44b8-aadd-c429fcd0886c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5ec671f-d5ca-4a74-ba5e-e50d69a4ea53"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="40" width="88" height="30" uuid="39a84d08-be19-4e29-b492-734e8827fa08">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34dd220d-a369-4d4c-8dfb-2aa8cc8706fd"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="40" width="100" height="30" uuid="29dd4e3f-ba6c-4524-a2cb-f8bd8a249a03">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="af6c1cc3-4976-47b2-83f2-60b920c6429d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="40" width="70" height="30" uuid="6a1310b1-fac4-424f-b5cd-ad9483934eb2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4debd9a0-4f5b-4234-ba30-df60d3c17c92"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Booking_BID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

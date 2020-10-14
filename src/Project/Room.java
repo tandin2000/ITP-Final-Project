@@ -37,7 +37,7 @@ import net.proteanit.sql.DbUtils;
  * @author Acer
  */
 public class Room extends javax.swing.JFrame {
-
+     //clone done
 
     /**
      * Creates new form Home
@@ -157,8 +157,8 @@ public class Room extends javax.swing.JFrame {
         btnUpdatePackage = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
         PackageCombo = new javax.swing.JComboBox<>();
+        jLabel38 = new javax.swing.JLabel();
         FacilityCombo = new javax.swing.JComboBox<>();
         btn_add_packagefacility = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
@@ -177,13 +177,13 @@ public class Room extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         facilityname = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         facilitytable = new javax.swing.JTable();
         jLabel25 = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         TEMP_TEXT = new javax.swing.JTextField();
+        jButton9 = new javax.swing.JButton();
         kitchenRequest = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         inventoryRequest = new javax.swing.JPanel();
@@ -573,7 +573,7 @@ public class Room extends javax.swing.JFrame {
                 .addComponent(pinventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(preports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(HomeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -774,13 +774,13 @@ public class Room extends javax.swing.JFrame {
                                     .addGroup(addRoomLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addGap(40, 40, 40)
                                         .addComponent(btn_update_room, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(87, 87, 87))
                                     .addGroup(addRoomLayout.createSequentialGroup()
                                         .addGap(357, 357, 357)
                                         .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)))
                                 .addComponent(adultsKey, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(addRoomLayout.createSequentialGroup()
                                 .addGap(416, 416, 416)
@@ -901,16 +901,15 @@ public class Room extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(addRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btn_update_room, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(addRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_update_room, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(addRoomLayout.createSequentialGroup()
                                 .addGap(168, 168, 168)
                                 .addComponent(children)
                                 .addGap(18, 18, 18)
-                                .addComponent(max_childrens, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                                .addComponent(max_childrens, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(addRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_delete_room, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(childrenKey, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -978,9 +977,9 @@ public class Room extends javax.swing.JFrame {
 
         jLabel37.setText("Select Package");
 
-        jLabel38.setText("Select a Facility");
-
         PackageCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel38.setText("Select a Facility");
 
         FacilityCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -1245,15 +1244,6 @@ public class Room extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 255));
-        jButton3.setText("ADD");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AddFacility(evt);
-            }
-        });
-
         facilitytable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -1328,6 +1318,13 @@ public class Room extends javax.swing.JFrame {
             }
         });
 
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/RoomButton/Crud/BeforeClick/addroom57.png"))); // NOI18N
+        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton9MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout addFacilitiesLayout = new javax.swing.GroupLayout(addFacilities);
         addFacilities.setLayout(addFacilitiesLayout);
         addFacilitiesLayout.setHorizontalGroup(
@@ -1347,13 +1344,17 @@ public class Room extends javax.swing.JFrame {
                             .addComponent(facilityname, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(addFacilitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE))
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addFacilitiesLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TEMP_TEXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136)))
+                        .addGroup(addFacilitiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addFacilitiesLayout.createSequentialGroup()
+                                .addComponent(TEMP_TEXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(136, 136, 136))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addFacilitiesLayout.createSequentialGroup()
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(94, 94, 94)))))
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -1370,9 +1371,9 @@ public class Room extends javax.swing.JFrame {
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(facilityname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete)
@@ -1634,10 +1635,8 @@ public class Room extends javax.swing.JFrame {
                             .addComponent(searchcustname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel42))
                         .addGap(18, 18, 18)))
-                .addGroup(inventoryRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(inventoryRequestLayout.createSequentialGroup()
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))
+                .addGroup(inventoryRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(inventoryRequestLayout.createSequentialGroup()
                         .addGroup(inventoryRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel26)
@@ -1664,11 +1663,9 @@ public class Room extends javax.swing.JFrame {
                                 .addGap(29, 29, 29)
                                 .addGroup(inventoryRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtcid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel41))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(inventoryRequestLayout.createSequentialGroup()
-                                .addComponent(jLabel29)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(jLabel41)))
+                            .addComponent(jLabel29))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(inventoryRequestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1856,9 +1853,9 @@ public class Room extends javax.swing.JFrame {
         
         //Going back to the Home page
         if(evt.getSource() == HomeBtn){
-            MainMenu m1 = new MainMenu();
-            this.setVisible(false);
-            m1.setVisible(true);
+//            MainMenu m1 = new MainMenu();
+//            this.setVisible(false);
+//            m1.setVisible(true);
         }
     }//GEN-LAST:event_mouseclicked
 
@@ -2139,44 +2136,6 @@ public class Room extends javax.swing.JFrame {
         
         fillPackagetable();
     }//GEN-LAST:event_AddPackage
-
-    private void AddFacility(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddFacility
-        String facility_name = facilityname.getText();
-        
-        //validation
-        if(facilityname.getText().equals("")){
-             JOptionPane.showMessageDialog(this, "Please enter the facility name","Error",JOptionPane.ERROR_MESSAGE);
-             return;
-        }
-        
-        //Validation to see if the item is already exist in the table.
-        DBHelper dbhelper = new DBHelper();
-        ResultSet rs = dbhelper.SelectFacility();
-        
-        try{
-            String name;
-            while(rs.next()){
-            name = rs.getString("name");
-                //System.out.println(name);   
-            if (facility_name.replaceAll("\\s+","").equalsIgnoreCase(name.replaceAll("\\s+",""))){
-                JOptionPane.showMessageDialog(this,"Facility is already exist","Error",JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            }
-        } catch (SQLException e) {
-                
-            System.out.println("Error");
-        }
-        
-        
-        
-        DBHelper.addFacility(facility_name);
-         //update message dispaly
-         JOptionPane.showMessageDialog(this, "Add Successfully..!");
-        facilityname.setText("");
-        
-        fillFacilityTable();
-    }//GEN-LAST:event_AddFacility
 
     private void AddInventoryRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddInventoryRequest
         
@@ -2643,6 +2602,46 @@ public class Room extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_DeletePackageDetails
 
+    ////////
+    private void AddFacility(java.awt.event.MouseEvent evt) {                             
+        String facility_name = facilityname.getText();
+        
+        //validation
+        if(facilityname.getText().equals("")){
+             JOptionPane.showMessageDialog(this, "Please enter the facility name","Error",JOptionPane.ERROR_MESSAGE);
+             return;
+        }
+        
+        //Validation to see if the item is already exist in the table.
+        DBHelper dbhelper = new DBHelper();
+        ResultSet rs = dbhelper.SelectFacility();
+        
+        try{
+            String name;
+            while(rs.next()){
+            name = rs.getString("name");
+                //System.out.println(name);   
+            if (facility_name.replaceAll("\\s+","").equalsIgnoreCase(name.replaceAll("\\s+",""))){
+                JOptionPane.showMessageDialog(this,"Facility is already exist","Error",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            }
+        } catch (SQLException e) {
+                
+            System.out.println("Error");
+        }
+        
+        
+        
+        DBHelper.addFacility(facility_name);
+         //update message dispaly
+         JOptionPane.showMessageDialog(this, "Add Successfully..!");
+        facilityname.setText("");
+        
+        fillFacilityTable();
+    }                            
+
+    
     private void ResetInventoryRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetInventoryRequest
        
         inventoryItem.setSelectedItem("");
@@ -2961,6 +2960,11 @@ public class Room extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_max_childrensKeyPressed
+
+    private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
+        // TODO add your handling code here:
+        AddFacility(evt);
+    }//GEN-LAST:event_jButton9MouseClicked
     
    /*  
     */
@@ -3151,12 +3155,12 @@ public class Room extends javax.swing.JFrame {
     private javax.swing.JPanel inventoryRequest;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

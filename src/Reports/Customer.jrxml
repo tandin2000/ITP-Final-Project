@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Customer" pageWidth="595" pageHeight="750" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="454cb104-5684-4453-9d1d-ca7da4e0d463">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+	<property name="background.image.path" value="C:\Users\salitha\Pictures\Colorful-Geometric-Simple-Background-Image.jpg"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="CUSTOMERID" class="java.lang.String">
+            <defaultValueExpression><![CDATA[$P{CUSTOMERID}]]></defaultValueExpression>
+		</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT *
+FROM itpfinaldb.customer 
+WHERE CID =  $P{CUSTOMERID}]]>
+	</queryString>
+	<field name="CID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="CID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="CName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Cemail" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Cemail"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="Nationality" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nationality"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="NIC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NIC"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<field name="PassportNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PassportNo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customer"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="519" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<frame>
+				<reportElement mode="Opaque" x="-10" y="-10" width="571" height="520" backcolor="#00EAFF" uuid="b000a34a-0a59-4cf9-8386-5d794197ff96"/>
+				<box>
+					<pen lineWidth="3.0" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement mode="Opaque" x="102" y="24" width="410" height="50" backcolor="#FF0000" uuid="914277f0-1bc5-4224-8ccc-15f81cbbfcdd"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Cooper Std Black" size="26"/>
+					</textElement>
+					<text><![CDATA[Customer Details Report]]></text>
+				</staticText>
+				<image>
+					<reportElement mode="Opaque" x="22" y="22" width="50" height="50" uuid="ad72fe50-6665-4811-a0a5-e1eba71bd1b0"/>
+					<imageExpression><![CDATA["src/Images/Button-7.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement mode="Opaque" x="21" y="222" width="140" height="30" backcolor="#FF2B00" uuid="521f602a-483d-4eb5-88d9-6e7421939b74"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[Address]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="21" y="282" width="140" height="30" backcolor="#FF2B00" uuid="d719eaaa-1347-4fb3-bc34-f315025bdffc"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[Email]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="21" y="102" width="140" height="30" backcolor="#FF2B00" uuid="c6946993-9dc2-4a8a-b089-c51ad176213e"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[Customer ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="21" y="162" width="140" height="30" backcolor="#FF2B00" uuid="2abb118f-bdc2-4bcf-982d-a82b9a152ccb"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[Customer Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="21" y="342" width="140" height="30" backcolor="#FF2B00" uuid="4a7da7af-7511-4d8d-af60-4baeb2ecd8b0"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[Nationality]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="21" y="402" width="140" height="30" backcolor="#FF2B00" uuid="0d6d4af6-855a-4cf9-8c27-c48ceabbf6c8"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[NIC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="21" y="462" width="140" height="30" backcolor="#FF2B00" uuid="366bc493-fcd3-4df9-b1f3-30291c0139e8"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<text><![CDATA[Passport]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="351" y="102" width="180" height="30" backcolor="#FF2B00" uuid="1927ec43-e4c3-4d0f-8954-2b5ee0bd5331"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CID}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="351" y="162" width="180" height="30" backcolor="#FF2B00" uuid="f3406cb1-29be-4885-8fa3-fcdeb51ec050"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="351" y="282" width="180" height="30" backcolor="#FF2B00" uuid="1be561f4-e8ef-414f-a01b-2523b949b48b"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Cemail}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="351" y="222" width="180" height="30" backcolor="#FF2B00" uuid="6a806a7a-3781-4391-9885-b8acd19b366a"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="351" y="342" width="180" height="30" backcolor="#FF2B00" uuid="c67ca011-aaad-4e80-80a8-56dc56e09b81"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Nationality}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="351" y="402" width="180" height="30" backcolor="#FF2B00" uuid="b9da6ef2-36d3-4d96-8d0c-f41f7eef491f"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NIC}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="351" y="462" width="180" height="30" backcolor="#FF2B00" uuid="a5e61a59-9671-4469-90bd-e7785cd79a8a"/>
+					<textElement>
+						<font size="18"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PassportNo}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="4" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+</jasperReport>

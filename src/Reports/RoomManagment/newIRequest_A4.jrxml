@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.13.0.final using JasperReports Library version 6.13.0-46ada4d1be8f3c5985fd0b6146f3ed44caed6f05  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="newIRequest_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dbb90d1c-3bc7-4ac2-a404-b274c0a31b2f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter package"/>
+	<parameter name="ID" class="java.lang.String"/>
+        
+	<queryString language="SQL">
+		<![CDATA[select * 
+from itpfinaldb.room_other_request
+where Booking_BID =  $P{ID} 
+]]>
+	</queryString>
+	<field name="RSNID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="RSNID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="InventoryItem" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="InventoryItem"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="Quantity" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="Quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="Amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="Amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="Booking_BID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Booking_BID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<field name="ExrtaExpences_ExID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ExrtaExpences_ExID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="room_other_request"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="97" y="30" width="361" height="32" uuid="87737782-2db3-45e1-ae76-a26adaa57724"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inventory Request Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="300" y="2" width="100" height="30" uuid="bd34fa54-a671-446a-8ee6-e1477f4d6c14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="0" width="101" height="31" uuid="06d63817-b94d-4d4e-ae83-6b1025ea27e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="77" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="10" width="560" height="57" backcolor="#64AAF5" uuid="e535a1b8-c9c3-4892-b786-10dc3b4e5457"/>
+				<staticText>
+					<reportElement x="19" y="10" width="100" height="30" uuid="e31fc724-6f6e-479b-a9a6-6daf11466214">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0123ca09-ed71-4bc7-81a7-f4f29a53d8aa"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16"/>
+					</textElement>
+					<text><![CDATA[InventoryItem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="169" y="13" width="100" height="30" uuid="2ad143f8-2318-4d38-a59d-a08e5073c4c6">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8cda6eb3-7f2b-4379-a59b-76ee296fbb3e"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16"/>
+					</textElement>
+					<text><![CDATA[Quantity]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="319" y="13" width="100" height="30" uuid="833f5eb5-1ddc-4cf5-8a31-dffc264a5325">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c449dc69-2f25-473a-b70e-48224d9bccbd"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16"/>
+					</textElement>
+					<text><![CDATA[Amount]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="449" y="13" width="100" height="30" uuid="2ab8aa00-ea88-4549-85e2-652a0fad32ca">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34ea3018-d836-424e-a100-4ed8891dea78"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="16"/>
+					</textElement>
+					<text><![CDATA[Date]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="560" height="50" backcolor="#A2F5E1" uuid="f8794a63-6dc0-4cfe-ae92-e6b2cb75a649"/>
+				<textField>
+					<reportElement x="20" y="10" width="100" height="30" uuid="e7c06b5d-b9fa-414d-831e-cace89963e4c">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0123ca09-ed71-4bc7-81a7-f4f29a53d8aa"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{InventoryItem}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="169" y="10" width="100" height="30" uuid="79d5efb1-2597-4abf-96eb-99e389938bae">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8cda6eb3-7f2b-4379-a59b-76ee296fbb3e"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{Quantity}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="320" y="10" width="100" height="30" uuid="dfb876df-2de8-41ca-a2eb-e489f0c3aa4c">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c449dc69-2f25-473a-b70e-48224d9bccbd"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="450" y="10" width="100" height="30" uuid="12e0a36e-7c4f-48be-9221-9ce3fac2da86">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="34ea3018-d836-424e-a100-4ed8891dea78"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
